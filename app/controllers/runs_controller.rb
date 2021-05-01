@@ -31,7 +31,7 @@ class RunsController < ApplicationController
   get "/runs/:id/edit" do
     redirect_if_not_logged_in
     @error_message = params[:error]
-    @runs = Run.all
+    @run = Run.find(params[:id])
     erb :"/runs/edit"
   end
 
@@ -41,11 +41,14 @@ class RunsController < ApplicationController
     unless Run.valid_params?(params)
       redirect "/runs/#{@run.id}/edit?error=invalid run"
     end
-    @run.update(params.select{|k|k=="name" || k=="capacity"})
+    @run.update(params.select{|k|k=="distance" || k=="duration" || k=="date"})
     redirect "/runs/#{@run.id}"
   end
 
   delete "/runs/:id/delete" do
+    redirect_if_not_logged_in
+    id = params[:id]
+    Run.destroy(id)
     redirect "/runs"
   end
 end
