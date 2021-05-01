@@ -1,0 +1,8 @@
+<% @runs.each do |run| %>
+	<h4><i><%= run.date %></i></h4>
+  <h4><b><%= run.distance %></b> Km</h4>
+  <h4><b><%= run.duration %></b> Hrs</h4>
+  <a href="/runs/<%=run.id%>/edit">Edit</a>
+  <br />
+  <br />
+<% end %>

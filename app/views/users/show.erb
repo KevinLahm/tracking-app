@@ -1,0 +1,6 @@
+<p> Here are your Runs, <%= @user.username %>
+<% @user.runs.each do |run| %>
+  <ul>
+    <li><a href="/runs/<%=run.id%>"><%= run.distance %></a></li>
+  </ul>
+<% end %>
