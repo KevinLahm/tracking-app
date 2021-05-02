@@ -2,7 +2,15 @@
 	<h4><i><%= run.date %></i></h4>
   <h4><b><%= run.distance %></b> Km</h4>
   <h4><b><%= run.duration %></b> Hrs</h4>
-  <a href="/runs/<%=run.id%>/edit">Edit</a>
+  <a href="/runs/<%=run.id%>/edit" style="text-decoration: none;">Edit</a>
+
+	<br />
+  <br />
+	<form action="/runs/<%= run.id %>" method='POST'>
+    <input type="hidden" name='_method' value='DELETE'/>
+    <button type="submit" class='super-sport'>Delete</button>
+  </form>
+
   <br />
   <br />
 <% end %>
