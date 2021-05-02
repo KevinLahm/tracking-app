@@ -46,6 +46,8 @@ class RunsController < ApplicationController
   end
 
   delete('/runs/:id') do
+    redirect_if_not_logged_in
+    @error_message = params[:error]
     Run.find(params[:id]).destroy
     redirect('/runs')
   end
