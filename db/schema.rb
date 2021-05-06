@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2021_05_01_202047) do
     t.string "date"
     t.integer "distance"
     t.integer "duration"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

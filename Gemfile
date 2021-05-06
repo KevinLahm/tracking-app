@@ -11,6 +11,9 @@ gem 'shotgun'
 gem 'pry'
 gem 'bcrypt'
 gem 'tux'
+gem 'foreman'
+gem 'rails_12factor'
+gem 'dotenv'
 
 group :test do
   gem 'rspec'

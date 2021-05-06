@@ -1,16 +1,42 @@
-<% @runs.each do |run| %>
-	<h4><i><%= run.date %></i></h4>
-  <h4><b><%= run.distance %></b> Km</h4>
-  <h4><b><%= run.duration %></b> Hrs</h4>
-  <a href="/runs/<%=run.id%>/edit" style="text-decoration: none;">Edit</a>
+<h1>Welcome, <b style="color:  #f20edd;"><%=current_user.username %></b></h1><br>
 
-	<br />
-  <br />
-	<form action="/runs/<%= run.id %>" method='POST'>
-    <input type="hidden" name='_method' value='DELETE'/>
-    <button type="submit" class='super-sport'>Delete</button>
-  </form>
+<h3>All The Runs:</h3>
 
-  <br />
-  <br />
-<% end %>
+<table class="styled_table">
+  <thead>
+    <tr style="line-height: 2.5em;">
+      <th>Id.</th>
+      <th>Date</th>
+      <th>Distance</th>
+      <th>Duration</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <% x = 0 %>
+  <% @runs.each do |run| %>
+    <tbody>
+      <tr>
+        <td><%= x += 1 %>.</td>
+        <td><%= run.date %></td>
+        <td><a href="/runs/<%= run.id %>"><%= run.distance %> Km</a></td>
+        <td><%= run.duration %> Hrs</td>
+        
+        <td>
+          <a href="/runs/<%=run.id%>/edit" style="text-decoration: none;">Edit</a>
+        </td>
+        <td>
+          <form action="/runs/<%= run.id %>" method='POST'>
+            <input type="hidden" name='_method' value='DELETE'/>
+            <button type="submit" class='super-sport'>Delete</button>
+          </form>
+        </td>
+
+      </tr>
+    </tbody>
+  <%end%>       
+</table>
+<br>
+<br>
+
+<p>Add a new run <a href="/runs/new">here.</a></p>

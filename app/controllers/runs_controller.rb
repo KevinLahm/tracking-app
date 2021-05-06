@@ -1,42 +1,55 @@
 class RunsController < ApplicationController
 
-  get "/runs" do
-    redirect_if_not_logged_in
-    @runs = Run.all
-    erb :"/runs/index"
-  end
-
-  get "/runs/new" do
-    redirect_if_not_logged_in
-    @error_message = params[:error]
-    erb :"/runs/new"
-  end
-
-  post "/runs" do
-    redirect_if_not_logged_in
-
-    unless Run.valid_params?(params)
-      redirect "/runs/new?error=invalid run"
+  helpers do
+    def redirect_if_not_authorized
+      @run = Run.find_by_id(params[:id])
+      if current_user != @run.user
+        redirect '/runs'
+      end
     end
-    Run.create(params)
-    redirect "/runs"
+  end
+  
+  get '/runs' do
+    if logged_in?
+      @user = current_user
+      @runs = current_user.runs 
+      erb:"runs/index"
+    else
+      redirect "/login"
+    end
   end
 
-  get "/runs/:id" do
-    redirect_if_not_logged_in
-    @run = Run.find(params[:id])
-    erb :"/runs/show"
+  get '/runs/new' do
+    if logged_in?
+      erb :'/runs/new'
+    else
+      redirect "/login"
+    end
   end
 
-  get "/runs/:id/edit" do
-    redirect_if_not_logged_in
-    @error_message = params[:error]
-    @run = Run.find(params[:id])
-    erb :"/runs/edit"
+  post '/runs' do
+    @s = current_user.runs.build(params)
+    if @s.save
+      redirect "/runs"
+    else
+      erb :"runs/new"
+    end
   end
 
-  post "/runs/:id" do
-    redirect_if_not_logged_in
+  get '/runs/:id/edit' do
+    if logged_in?
+      @run = Run.find_by_id(params[:id])
+      if @run.user_id == current_user.id
+        erb :'runs/edit'
+      else
+        redirect "/runs"
+      end
+    end
+  end
+
+  patch "/runs/:id" do
+    redirect_if_not_authorized
+
     @run = Run.find(params[:id])
     unless Run.valid_params?(params)
       redirect "/runs/#{@run.id}/edit?error=invalid run"
@@ -45,11 +58,23 @@ class RunsController < ApplicationController
     redirect "/runs/#{@run.id}"
   end
 
-  delete('/runs/:id') do
-    redirect_if_not_logged_in
-    @error_message = params[:error]
-    Run.find(params[:id]).destroy
-    redirect('/runs')
+  get '/runs/:id' do
+    @run = Run.find_by(id: params[:id])
+    if logged_in?
+      erb :"/runs/show"
+    else
+      redirect "/login"
+    end
+  end 
+
+  delete '/runs/:id' do
+    @run = Run.find(params[:id])
+    if logged_in? && @run.user_id == current_user.id
+      @run.destroy
+      redirect "/runs"
+    else
+      redirect "/login"
+    end
   end
 
 end

@@ -1,0 +1,33 @@
+/*Custom CSS*/
+.styled_table {
+  border-collapse: collapse;
+  margin: 35px 0;
+  font-size: 1.2em;
+  font-family: sans-serif;
+  min-width: 600px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled_table thead tr {
+  background-color: #4a0344;
+  color: #ffffff;
+  text-align: center;
+}
+
+.sstyled_table th,
+.styled_table td {
+  padding: 15px 19px;
+  text-align: center;
+}
+
+.styled_table tbody tr {
+  border-bottom: 3px solid #dddddd;
+}
+
+.styled_table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.styled_table tbody tr:last-of-type {
+  border-bottom: 5px solid #f9d3f9;
+}

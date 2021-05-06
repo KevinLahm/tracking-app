@@ -1,12 +1,16 @@
-  <%= @run.date %><br />
-  <%= @run.duration %><br />
-  <%= @run.distance %> <br />
+<h2>Your Run</h2><br>
+<h1><%= @run.date %></h1><br>
+<h1><%= @run.duration %></h1><br>
+<h1><%= @run.distance %></h1><br>
 
-  <br />
-  <br />
-  <a href="/runs/<%=@run.id%>/edit" style="text-decoration: none;">Edit</a>
-  <br />
-  <br />
-  <a href="/runs" style="text-decoration: none;color: red;">Back</a>
-  <br />
-  <br />
+<form action="/runs/<%=@run.id%>/edit" method="get">
+  <input type="submit" value="Edit Run">
+</form><br>
+
+<form action="/runs/<%= @run.id %>" method='POST'>
+  <input type="hidden" name='_method' value='DELETE'/>
+  <button type="submit" class='super-sport'>Delete Run</button>
+</form><br>
+
+<a href="/runs" style="text-decoration: none;color: red;">Home</a>
+<br>

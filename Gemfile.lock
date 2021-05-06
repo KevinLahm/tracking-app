@@ -40,7 +40,9 @@ GEM
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0.0)
     diff-lcs (1.4.4)
+    dotenv (2.7.6)
     eventmachine (1.2.7)
+    foreman (0.87.2)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     method_source (1.0.0)
@@ -62,6 +64,11 @@ GEM
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
+    rails_12factor (0.0.3)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.5)
+    rails_stdout_logging (0.0.5)
     rake (13.0.3)
     regexp_parser (2.1.1)
     require_all (3.0.0)
@@ -122,8 +129,11 @@ DEPENDENCIES
   bcrypt
   capybara
   database_cleaner!
+  dotenv
+  foreman
   pry
   rack-test
+  rails_12factor
   rake
   require_all
   rspec
